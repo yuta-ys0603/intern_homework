@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Talk{% end %}
+{% block content %}
+  <script>
+    var socket = new WebSocket('ws://' + location.host + '/chat');
+
+    function sendAction(msg){
+      var message = {message: msg};
+      socket.send(JSON.stringify(message));
+    }
+
+    socket.onopen = function(data){}
+
+    socket.onclose = function(){}
+
+    socket.onmessage = function(event){
+      var data = JSON.parse(event.data);
+      if('messages' in data){
+        var messages = data.messages;
+        for(var i=0; i<messages.length; i++){
+          $("#chat_div").chatbox("option", "boxManager").addMsg(null, messages[i].message, false);
+        }
+      }else{
+        $("#chat_div").chatbox("option", "boxManager").addMsg(null,data.message, false);
+      }
+    }
+
+    $(document).ready(function(){
+      $("#chat_div").chatbox({id : "chat_div",
+                                      title : "Title",
+                                      user : "{{current_user}}",
+                                      hidden : false,
+                                      offset : 450,
+                                      width : 600,
+                                      messageSent : function(id,user,msg){
+                                        this.boxManager.addMsg(null,msg,true);
+                                        sendAction(msg);
+                                  }});
+    });
+  </script>
+  <div id="chat_div" class="chat"></div>
+{% end %}

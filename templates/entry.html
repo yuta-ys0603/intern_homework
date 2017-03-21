@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <title>Entry</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{static_url("css/style.css")}}"/>
+</head>
+<body>
+  <div class="container">
+    <form action="/entry" method="post">
+      {% module xsrf_form_html() %}
+      <p>User Name<input type="text" name="username" class="form-control" ></p>
+      <p>Email<input type="email" name="email" class="form-control" ></p>
+      <p>PassWord<input type="password" name="password" class="form-control"></p>
+      <p><input type="submit" value="Entry"></p>
+    </form>
+  </div>
+</body>
+</html>
