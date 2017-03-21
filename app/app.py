@@ -27,7 +27,6 @@ class Application(tornado.web.Application):
             login_url = '/',
             xsrf_cookies = True,
             cookie_secret = 'afasf156a48e6wag1arw56rwe4',
-            debug = True,
         )
 
 if __name__ == '__main__':
